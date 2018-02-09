@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello WebSocket</title>
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/main.css" rel="stylesheet">
+    <script src="/webjars/jquery/jquery.min.js"></script>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="/Chart.js"></script>
+    <script src="./app.js"></script>
+    
+</head>
+<body>
+<noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being
+    enabled. Please enable
+    Javascript and reload this page!</h2></noscript>
+<div id="main-content" class="container">
+    
+    <div class="row">
+        <div class="col-md-6">
+            <table id="conversation" class="table table-striped">
+                <tbody id="greetings">
+               <canvas id="myChart" width="400" height="400"></canvas>
+                <script>
+                		var ctx = $("#myChart");
+                		var backgroundColor=[
+    		                'rgba(255, 99, 132, 0.2)',
+    		                'rgba(54, 162, 235, 0.2)',
+    		                'rgba(255, 206, 86, 0.2)',
+    		                'rgba(75, 192, 192, 0.2)',
+    		                'rgba(153, 102, 255, 0.2)',
+    		                'rgba(255, 159, 64, 0.2)'
+    		            ];
+                		var borderColor=[
+    		                'rgba(255,99,132,1)',
+    		                'rgba(54, 162, 235, 1)',
+    		                'rgba(255, 206, 86, 1)',
+    		                'rgba(75, 192, 192, 1)',
+    		                'rgba(153, 102, 255, 1)',
+    		                'rgba(255, 159, 64, 1)'
+    		            ];
+                		var data= {
+                		    type: 'bar',
+                		    data: {
+                		        labels: ["Eric", "Franck", "Roger", "Serge", "Christian", "Erman"],
+                		        datasets: [{
+                		            label: '# of Votes',
+                		            data: [0, 0, 0, 0, 0, 0],
+                		            backgroundColor:backgroundColor,
+                		            borderColor:borderColor,
+                		            borderWidth: 1
+                		        }]
+                		    },
+                		    options: {
+                		        scales: {
+                		            yAxes: [{
+                		                ticks: {
+                		                    beginAtZero:true,
+                		                    min: 0,
+                		                    max: 100,
+                		                    stepSize: 5
+                		                }
+                		            }]
+                		        }
+                		    }
+                		};
+                		var myChart = new Chart(ctx, data);
+//                 		data.data.datasets.data=[1, 1, 1, 1, 1, 1],
+						function updateChart(users){ 
+						   var labels=myChart.data.labels; 
+	                       for(us=0;us<users.length;us++){
+	                    	   var user=users[us];
+	                    	   for(lb=0;lb<labels.length;lb++){
+	                    		   var label=labels[lb];
+	                    		   if(user.name.toLowerCase()==label.toLowerCase()){
+	                    			   myChart.data.datasets[0].data[lb]= user.votes;
+	                    			   break;
+	                    		   }
+	                    	   }
+	                       }
+						   myChart.update();
+						}
+						connect(updateChart);
+//                 		myChart.config.data = newdata;
+                		
+				</script>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
