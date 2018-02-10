@@ -34,9 +34,9 @@
     		            ];
                 		var borderColor=[
     		                'rgba(255,99,132,1)',
-    		                'rgba(54, 162, 235, 1)',
+    		                'rgba(0, 102, 204, 1)',
     		                'rgba(255, 206, 86, 1)',
-    		                'rgba(75, 192, 192, 1)',
+    		                'rgba(0, 204, 0, 1)',
     		                'rgba(153, 102, 255, 1)',
     		                'rgba(255, 159, 64, 1)'
     		            ];
@@ -58,8 +58,8 @@
                 		                ticks: {
                 		                    beginAtZero:true,
                 		                    min: 0,
-                		                    max: 100,
-                		                    stepSize: 5
+                		                    max: 100000,
+                		                    stepSize: 10
                 		                }
                 		            }]
                 		        }
@@ -67,14 +67,14 @@
                 		};
                 		var myChart = new Chart(ctx, data);
 //                 		data.data.datasets.data=[1, 1, 1, 1, 1, 1],
-						function updateChart(users){ 
+						function updateChart(votes){
 						   var labels=myChart.data.labels; 
-	                       for(us=0;us<users.length;us++){
-	                    	   var user=users[us];
+	                       for(us=0;us<votes.length;us++){
+	                    	   var vote=votes[us];
 	                    	   for(lb=0;lb<labels.length;lb++){
 	                    		   var label=labels[lb];
-	                    		   if(user.name.toLowerCase()==label.toLowerCase()){
-	                    			   myChart.data.datasets[0].data[lb]= user.votes;
+	                    		   if(vote.candidateName.toLowerCase()==label.toLowerCase()){
+	                    			   myChart.data.datasets[0].data[lb]= vote.numbers;
 	                    			   break;
 	                    		   }
 	                    	   }

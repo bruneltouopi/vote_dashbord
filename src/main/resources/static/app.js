@@ -13,16 +13,16 @@ function setConnected(connected) {
 }
 
 function connect(updateChart) {
-    var socket = new SockJS('/gs-guide-websocket');
+    var socket = new SockJS('/vote-websocket');
     stompClient = Stomp.over(socket);
     var i=0;
     stompClient.connect({}, function (frame) {
         setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/greetings', function (data) {
-        	var users=JSON.parse(data.body);
-            console.log(users);
-            updateChart(users);
+        stompClient.subscribe('/topic/votes', function (data) {
+        	var votes=JSON.parse(data.body);
+            console.log(votes);
+            updateChart(votes);
         });
     });
 }

@@ -1,12 +1,11 @@
-package hello;
+package com.vote.repository;
 
+import com.vote.domain.Candidate;
 import org.springframework.data.repository.CrudRepository;
-
-import hello.User;
 
 // This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
 // CRUD refers Create, Read, Update, Delete
 
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface CanditeRepository extends CrudRepository<Candidate, Long> {
 
 }
